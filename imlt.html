@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RED MENU KEY SHOP</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#100707;color:white;
+  font-family:Arial,sans-serif
+}
+header{
+  background:#b90000;padding:22px;text-align:center;
+  box-shadow:0 0 20px #ff000055
+}
+header h1{margin:0;font-size:26px}
+header p{margin:8px 0 0;color:#ffdada}
+.container{max-width:900px;margin:auto;padding:20px}
+h2{color:#ff4545}
+.products{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px
+}
+.card{
+  background:#211010;border:1px solid #6e2020;
+  border-radius:12px;padding:18px;text-align:center
+}
+.card h3{color:#ff5555}
+.price{font-size:25px;font-weight:bold;margin:15px}
+button{
+  border:0;border-radius:8px;padding:12px 18px;
+  background:#e00000;color:white;font-weight:bold;
+  cursor:pointer;width:100%
+}
+button:hover{background:#ff3333}
+.cart{
+  margin-top:24px;padding:18px;background:#211010;
+  border:1px solid #6e2020;border-radius:12px
+}
+input{
+  width:100%;padding:12px;margin:8px 0;
+  border-radius:7px;border:1px solid #555;
+  background:#100707;color:white
+}
+footer{text-align:center;padding:20px;color:#aaa}
+.small{font-size:13px;color:#bbb}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔴 RED MENU KEY SHOP</h1>
+  <p>License Shop • Demo Website</p>
+</header>
+
+<div class="container">
+  <h2>Danh sách sản phẩm</h2>
+
+  <div class="products">
+    <div class="card">
+      <h3>KEY BASIC</h3>
+      <p>Gói sử dụng cơ bản</p>
+      <div class="price">20.000đ</div>
+      <button onclick="addCart('KEY BASIC',20000)">
+        Chọn mua
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>KEY VIP</h3>
+      <p>Gói sử dụng nâng cao</p>
+      <div class="price">50.000đ</div>
+      <button onclick="addCart('KEY VIP',50000)">
+        Chọn mua
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>KEY PREMIUM</h3>
+      <p>Gói sử dụng cao cấp</p>
+      <div class="price">100.000đ</div>
+      <button onclick="addCart('KEY PREMIUM',100000)">
+        Chọn mua
+      </button>
+    </div>
+  </div>
+
+  <div class="cart">
+    <h2>🛒 Đơn hàng</h2>
+    <p id="cartText">Bạn chưa chọn sản phẩm.</p>
+    <p id="total">Tổng: 0đ</p>
+
+    <input id="customer"
+      placeholder="Tên hoặc biệt danh của bạn">
+
+    <input id="contact"
+      placeholder="Thông tin liên hệ">
+
+    <button onclick="checkout()">Tạo đơn hàng demo</button>
+
+    <p class="small">
+      Đây là bản demo giao diện. Nút tạo đơn chưa thu tiền
+      và chưa cấp key thật.
+    </p>
+  </div>
+</div>
+
+<footer>
+  RED MENU KEY SHOP © 2026
+</footer>
+
+<script>
+let cart = [];
+let total = 0;
+
+function addCart(name, price){
+  cart.push({name,price});
+  total += price;
+  document.getElementById("cartText").textContent =
+    cart.map(item => item.name).join(", ");
+  document.getElementById("total").textContent =
+    "Tổng: " + total.toLocaleString("vi-VN") + "đ";
+}
+
+function checkout(){
+  if(cart.length === 0){
+    alert("Bạn chưa chọn sản phẩm!");
+    return;
+  }
+
+  const customer =
+    document.getElementById("customer").value.trim();
+  const contact =
+    document.getElementById("contact").value.trim();
+
+  if(!customer || !contact){
+    alert("Vui lòng nhập tên và thông tin liên hệ.");
+    return;
+  }
+
+  const order = {
+    customer,
+    contact,
+    products: cart,
+    total
+  };
+
+  alert(
+    "ĐƠN HÀNG DEMO\n" +
+    "Khách: " + order.customer + "\n" +
+    "Sản phẩm: " +
+    cart.map(x=>x.name).join(", ") + "\n" +
+    "Tổng: " + total.toLocaleString("vi-VN") + "đ\n\n" +
+    "Đơn mẫu được tạo trên trình duyệt."
+  );
+}
+</script>
+
+</body>
+</html>
